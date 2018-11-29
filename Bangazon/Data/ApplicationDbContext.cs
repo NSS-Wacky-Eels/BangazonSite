@@ -61,6 +61,23 @@ namespace Bangazon.Data {
             user.PasswordHash = passwordHash.HashPassword (user, "Admin8*");
             modelBuilder.Entity<ApplicationUser> ().HasData (user);
 
+            ApplicationUser user2 = new ApplicationUser
+            {
+                FirstName = "alejandro",
+                LastName = "alejandro",
+                StreetAddress = "123 Infinity Way",
+                UserName = "alejandro@alejandro.com",
+                NormalizedUserName = "alejandro@alejandro.COM",
+                Email = "alejandro@alejandro.com",
+                NormalizedEmail = "alejandro@alejandro.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+            var passwordHash2 = new PasswordHasher<ApplicationUser>();
+            user2.PasswordHash = passwordHash2.HashPassword(user2, "Alex2*");
+            modelBuilder.Entity<ApplicationUser>().HasData(user2);
+
             modelBuilder.Entity<PaymentType> ().HasData (
                 new PaymentType () {
                     PaymentTypeId = 1,
@@ -73,6 +90,20 @@ namespace Bangazon.Data {
                         UserId = user.Id,
                         Description = "Discover",
                         AccountNumber = "4102948572991"
+                },
+                new PaymentType()
+                {
+                    PaymentTypeId = 3,
+                    UserId = user2.Id,
+                    Description = "Discover",
+                    AccountNumber = "1826475983857"
+                },
+                new PaymentType()
+                {
+                    PaymentTypeId = 4,
+                    UserId = user2.Id,
+                    Description = "American Express",
+                    AccountNumber = "2345123467895"
                 }
             );
 
@@ -105,6 +136,16 @@ namespace Bangazon.Data {
                         Title = "Wheelbarrow",
                         Quantity = 5,
                         Price = 29.99
+                },
+                new Product()
+                {
+                    ProductId = 3,
+                    ProductTypeId = 2,
+                    UserId = user2.Id,
+                    Description = "They're short",
+                    Title = "High-waters",
+                    Quantity = 5,
+                    Price = 29.99
                 }
             );
 
@@ -112,6 +153,12 @@ namespace Bangazon.Data {
                 new Order () {
                     OrderId = 1,
                     UserId = user.Id,
+                    PaymentTypeId = null
+                },
+                new Order()
+                {
+                    OrderId = 2,
+                    UserId = user2.Id,
                     PaymentTypeId = null
                 }
             );
@@ -128,6 +175,24 @@ namespace Bangazon.Data {
                 new OrderProduct () {
                     OrderProductId = 2,
                     OrderId = 1,
+                    ProductId = 2
+                }
+            );
+
+            modelBuilder.Entity<OrderProduct>().HasData(
+                new OrderProduct()
+                {
+                    OrderProductId = 3,
+                    OrderId = 2,
+                    ProductId = 3
+                }
+            );
+
+            modelBuilder.Entity<OrderProduct>().HasData(
+                new OrderProduct()
+                {
+                    OrderProductId = 4,
+                    OrderId = 2,
                     ProductId = 2
                 }
             );
