@@ -1,4 +1,13 @@
-﻿@model Bangazon.Models.ProductType
+﻿@*
+   Author : Alejandro Font
+   Purpose : For ProductTypes Details page to show each product belonging to ProductType
+   Method : After altering the ProductType/Details Controller to receive Product, I inserted a foreach loop to show each product.
+                The loop will show the title of the product, in addition to the Quantity and Price. 
+
+*@
+
+
+@model Bangazon.Models.ProductType
 
 @{
     ViewData["Title"] = "Details";
@@ -7,15 +16,25 @@
 <h2>Details</h2>
 
 <div>
-    <h4>ProductType</h4>
+    <h4>@Model.Label</h4>
     <hr />
     <dl class="dl-horizontal">
+           
+     @foreach (Product p in Model.Products)
+     { 
         <dt>
-            @Html.DisplayNameFor(model => model.Label)
+            @p.Title
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Label)
+            
+     
+            <p>Quantity: @p.Quantity</p>
+                   
+            <p>Price: $@p.Price</p>
+
+        
         </dd>
+            }
     </dl>
 </div>
 <div>
