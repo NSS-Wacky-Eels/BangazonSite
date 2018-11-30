@@ -1,5 +1,6 @@
 ﻿@model Bangazon.Models.ProductTypeViewModels.ProductTypeViewModel
 
+
 @{
     ViewData["Title"] = "Types";
 }
@@ -25,34 +26,35 @@
                     </h4>
                     @foreach (var item in key.Products)
                     {
-                    <div>
-                        <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId">@item.Title</a>
+                        <div>
+                            <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId">@item.Title</a>
 
-                    </div>
-                   
-
+                        </div>
 
 
-            }
-
-                   </td>
-                    </tr>
 
 
-                }
+                    }
 
-@foreach (var item in Model) {
-        <tr>
-            <td> 
-                <a asp-action="Details" asp-route-id="@item.ProductTypeId">@Html.DisplayFor(modelItem => item.Label)</a> 
-            </td>
-            
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.ProductTypeId">Edit</a> 
-                <a asp-action="Delete" asp-route-id="@item.ProductTypeId">Delete</a>
-            </td>*@
-            
-        </tr>
-}
+                </td>
+            </tr>
+
+
+        }
+
+        @*@foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ProductTypeId">@Html.DisplayFor(modelItem => item.Label)</a>
+                </td>*@
+
+                @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductTypeId">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductTypeId">Delete</a>
+                    </td>
+        }*@
+            </tr>
+        
     </tbody>
 </table>
