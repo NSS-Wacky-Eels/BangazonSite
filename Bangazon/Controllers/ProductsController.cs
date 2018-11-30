@@ -30,7 +30,16 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
         }
 
-       public async Task<IActionResult> Index()
+        //Kayla Reid 
+        //Purpse to get top 20 products for home page 
+        [Authorize]
+        public async Task<IActionResult> HomeTopTwenty()
+        {
+            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> Index()
         {
            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
            return View(await applicationDbContext.ToListAsync());
