@@ -26,11 +26,20 @@ namespace Bangazon.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        // author Kayla Reid
+        //purpose to get products the user searches for 
         // GET: Products
-        public async Task<IActionResult> Index()
+        [Authorize]
+        public async Task<IActionResult> SearchResults(string search)
         {
-            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.ToListAsync());
+            var applicationDbContext = _context.Product;
+            return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
+        }
+
+       public async Task<IActionResult> Index()
+        {
+           var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
+           return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Products/Details/5
