@@ -34,6 +34,10 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Product Types</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Sell Something</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">View Cart</a></li>
+                    @using (@Html.BeginForm("SearchResults", "Products", FormMethod.Get))
+                    { 
+                        @Html.TextBox("search")<input placeholder="search for products" value="search" type="submit"/>
+                    }
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
