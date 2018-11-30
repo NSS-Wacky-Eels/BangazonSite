@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<Bangazon.Models.Product>
 
+@*author Kayla Reid
+    purpose to show top 20 products to user on the home/main page of app*@
 @{
     ViewData["Title"] = "HomeTopTwenty";
 }
@@ -31,7 +33,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
                 <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Title)</a>
@@ -46,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProductType.Label)
+                <a asp-action="Details" asp-controller="ProductTypes" asp-route-id="@item.ProductTypeId">@Html.DisplayFor(modelItem => item.ProductType.Label)</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

@@ -36,7 +36,7 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> HomeTopTwenty()
         {
             var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await applicationDbContext.Take(20).ToListAsync());
         }
 
         public async Task<IActionResult> Index()
