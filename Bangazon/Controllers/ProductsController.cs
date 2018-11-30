@@ -32,7 +32,6 @@ namespace Bangazon.Controllers
 
         //Kayla Reid 
         //Purpse to get top 20 products for home page 
-        [Authorize]
         public async Task<IActionResult> HomeTopTwenty()
         {
             var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
