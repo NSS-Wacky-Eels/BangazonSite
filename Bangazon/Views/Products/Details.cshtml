@@ -29,7 +29,7 @@
             @Html.DisplayFor(model => model.Quantity)
         </dd>
         <dd>
-            <button type="submit" id="addToOrderButton" formaction='@Url.Action("Add", "Products")'>Add To Order</button>
+            <div class="btn"><a asp-area="" asp-controller="Products" asp-action="AddToOrder" asp-route-id="@Model.ProductId">Purchase</a></div>
         </dd>
     </dl>
 </div>

@@ -32,13 +32,11 @@ namespace Bangazon.Models
 
     [Required]
     public string UserId {get; set;}
+    public ApplicationUser User { get; set; }
 
     public string City {get; set;}
 
     public string ImagePath {get; set;}
-
-    [Required]
-    public ApplicationUser User { get; set; }
 
     [Required]
     [Display(Name="Product Category")]
