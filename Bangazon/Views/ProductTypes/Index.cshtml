@@ -14,16 +14,16 @@
 
     <tbody>
 
-        @foreach (GroupedProducts key in Model.GroupedProducts)
+        @foreach (var key in Model.GroupedProducts)
         {
 
             <tr>
 
                 <td>
-                    <a asp-action="Details" asp-route-id="@key.TypeId">@key.TypeName (@key.ProductCount)</a>
-                    
-                        @foreach (Product item in key.Products)
-                        {
+                    <a asp-action="Details">@key.TypeName (@key.ProductCount)</a>
+
+                    @foreach (var item in key.Products)
+                    {
                 <tr>
                     <td>
                         <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId">@item.Title</a>
@@ -36,12 +36,12 @@
 
             }
 
-                        
-                        </td>
-                        </tr>
+
+                    </td>
+                    </tr>
 
 
-                    }
+                }
 
     </tbody>
 </table>

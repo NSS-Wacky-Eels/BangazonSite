@@ -23,10 +23,6 @@ namespace Bangazon.Controllers
         // GET: ProductTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ProductType.ToListAsync());
-        }
-        public async Task<IActionResult> Types()
-        {
             var model = new ProductTypeViewModel();
 
             // Build list of Product instances for display in view
