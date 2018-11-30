@@ -26,7 +26,7 @@ namespace Bangazon.Controllers
         [Authorize]
         public async Task<IActionResult> SearchResults(string search)
         {
-            var applicationDbContext = _context.Product;
+            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
             return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
         }
 
