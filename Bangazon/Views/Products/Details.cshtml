@@ -29,7 +29,7 @@
             @Html.DisplayFor(model => model.Quantity)
         </dd>
         <dd>
-            <button asp-action="Index">Add To Order</button>
+            <button type="submit" id="addToOrderButton" formaction='@Url.Action("Add", "Products")'>Add To Order</button>
         </dd>
     </dl>
 </div>
