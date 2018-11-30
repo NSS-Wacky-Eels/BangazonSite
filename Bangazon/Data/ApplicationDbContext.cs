@@ -146,6 +146,186 @@ namespace Bangazon.Data {
                     Title = "High-waters",
                     Quantity = 5,
                     Price = 29.99
+                },
+                new Product()
+                {
+                    ProductId = 4,
+                    ProductTypeId = 2,
+                    UserId = user2.Id,
+                    Description = "It cleans stuff",
+                    Title = "Washer",
+                    Quantity = 5,
+                    Price = 429.99
+                },
+                new Product()
+                {
+                    ProductId = 5,
+                    ProductTypeId = 2,
+                    UserId = user2.Id,
+                    Description = "It drys stuff",
+                    Title = "Dryer",
+                    Quantity = 5,
+                    Price = 329.99
+                },
+                new Product()
+                {
+                    ProductId = 6,
+                    ProductTypeId = 2,
+                    UserId = user.Id,
+                    Description = "It mixes stuff",
+                    Title = "Mixer",
+                    Quantity = 5,
+                    Price = 129.99
+                },
+                new Product()
+                {
+                    ProductId = 7,
+                    ProductTypeId = 2,
+                    UserId = user.Id,
+                    Description = "Makes Bread",
+                    Title = "Bread maker",
+                    Quantity = 8,
+                    Price = 29.99
+                },
+                new Product()
+                {
+                    ProductId = 8,
+                    ProductTypeId = 2,
+                    UserId = user2.Id,
+                    Description = "Makes Rice",
+                    Title = "Rice maker",
+                    Quantity = 90,
+                    Price = 19.99
+                },
+                new Product()
+                {
+                    ProductId = 9,
+                    ProductTypeId = 2,
+                    UserId = user2.Id,
+                    Description = "Makes stuff cold",
+                    Title = "Freezer",
+                    Quantity = 190,
+                    Price = 59.99
+                },
+                new Product()
+                {
+                    ProductId = 10,
+                    ProductTypeId = 2,
+                    UserId = user.Id,
+                    Description = "Cooks stuff",
+                    Title = "Stove",
+                    Quantity = 10,
+                    Price = 259.99
+                },
+                new Product()
+                {
+                    ProductId = 11,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "It bounces high",
+                    Title = "Ball",
+                    Quantity = 130,
+                    Price = 9.99
+                }, 
+                new Product()
+                {
+                    ProductId = 12,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "It's Fast",
+                    Title = "Foot Ball",
+                    Quantity = 30,
+                    Price = 9.99
+                },
+                new Product()
+                {
+                    ProductId = 13,
+                    ProductTypeId = 1,
+                    UserId = user2.Id,
+                    Description = "Keeps you dry",
+                    Title = "Tent",
+                    Quantity = 5630,
+                    Price = 89.99
+                },
+                new Product()
+                {
+                    ProductId = 14,
+                    ProductTypeId = 1,
+                    UserId = user2.Id,
+                    Description = "Keeps you Warm",
+                    Title = "Sleeping Bag",
+                    Quantity = 40,
+                    Price = 39.99
+                },
+                new Product()
+                {
+                    ProductId = 15,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "Soooo cozy",
+                    Title = "Running Shoes",
+                    Quantity = 560,
+                    Price = 99.99
+                },
+                new Product()
+                {
+                    ProductId = 16,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "Its soo fast",
+                    Title = "Frizbee",
+                    Quantity = 5,
+                    Price = 7.99
+                },
+                new Product()
+                {
+                    ProductId = 17,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "Makes you look like you work in an office",
+                    Title = "Golf Club",
+                    Quantity = 5,
+                    Price = 72.99
+                },
+                new Product()
+                {
+                    ProductId = 18,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "Makes you look like you work in an office",
+                    Title = "Golf Ball",
+                    Quantity = 54567,
+                    Price = 2.99
+                },
+                new Product()
+                {
+                    ProductId = 19,
+                    ProductTypeId = 1,
+                    UserId = user2.Id,
+                    Description = "They are REALLY SHORT",
+                    Title = "Sport Shorts",
+                    Quantity = 67,
+                    Price = 22.99
+                },
+                new Product()
+                {
+                    ProductId = 20,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "Keeps you cool",
+                    Title = "Sport Shirt",
+                    Quantity = 167,
+                    Price = 18.99
+                },
+                new Product()
+                {
+                    ProductId = 21,
+                    ProductTypeId = 1,
+                    UserId = user.Id,
+                    Description = "keeps the sweat out of your eyes",
+                    Title = "Sweat Band",
+                    Quantity = 167,
+                    Price = 8.99
                 }
             );
 
