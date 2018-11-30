@@ -20,17 +20,16 @@
             <tr>
 
                 <td>
-                    <a asp-action="Details">@key.TypeName (@key.ProductCount)</a>
-
+                    <h4>
+                        <a asp-action="Details" asp-route-id="@key.TypeId">@key.TypeName (@key.ProductCount)</a>
+                    </h4>
                     @foreach (var item in key.Products)
                     {
-                <tr>
-                    <td>
+                    <div>
                         <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId">@item.Title</a>
 
-
-                    </td>
-                </tr>
+                    </div>
+                   
 
 
 
