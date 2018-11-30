@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<Bangazon.Models.Product>
 
-    @*author Kayla Reid 
-    purpose to show products the user searched for*@
+@*author Kayla Reid
+    purpose to show top 20 products to user on the home/main page of app*@
 @{
-    ViewData["Title"] = "SearchResults";
+    ViewData["Title"] = "HomeTopTwenty";
 }
 
-<h2>SearchResults</h2>
+<h2>HomeTopTwenty</h2>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -30,21 +33,16 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <a asp-action="Details" asp-controller="Products" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Title)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-<<<<<<< HEAD
-                <a asp-action="Details" asp-route-id="item.ProductId">@Html.DisplayFor(modelItem => item.Title)</a>
-            </td>
-            <td>
-=======
->>>>>>> master
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
@@ -53,10 +51,7 @@
             <td>
                 <a asp-action="Details" asp-controller="ProductTypes" asp-route-id="@item.ProductTypeId">@Html.DisplayFor(modelItem => item.ProductType.Label)</a>
             </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> 
-            </td>
         </tr>
-}
+        }
     </tbody>
 </table>
