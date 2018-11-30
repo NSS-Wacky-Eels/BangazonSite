@@ -81,12 +81,12 @@ namespace Bangazon.Controllers
         {
             if (ModelState.IsValid)
             {
+                ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
+                ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
             return View(product);
         }
 
