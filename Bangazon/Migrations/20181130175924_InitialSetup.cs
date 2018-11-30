@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bangazon.Migrations
 {
-    public partial class BangazonTables : Migration
+    public partial class InitialSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -283,8 +283,8 @@ namespace Bangazon.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StreetAddress", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "060cf717-dc79-4218-b0d2-24cb65629b3c", 0, "7bbe3762-edb9-4cd4-98f6-8ff5bbb431db", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEGUhHAb25Adt2+ZHIdtuYMME/841xgojqREnr1EAvVyBi7AYaWBSpuGNMWZoN0YfLA==", null, false, "158382ed-d883-4ed9-9b36-56a1071d3f7b", "123 Infinity Way", false, "admin@admin.com" },
-                    { "153e62b3-a5de-4c33-9daf-0e2ed2ca8316", 0, "91a5e744-2adf-4c91-a2c6-7bc6cbab72e8", "alejandro@alejandro.com", true, "alejandro", "alejandro", false, null, "alejandro@alejandro.COM", "alejandro@alejandro.COM", "AQAAAAEAACcQAAAAENwWoU0wlNsDDxoMCSNagnA6fyhBiND8vgSb2yRpF+8l3OPTmEZsLOpLlBFBAvUJmw==", null, false, "1eb64de0-a1f8-4aa3-802a-f80de45c6bfc", "123 Infinity Way", false, "alejandro@alejandro.com" }
+                    { "9b562b5e-1cc0-4073-abdb-d81b9d93129f", 0, "3ce49cbd-b1a6-4139-91c5-d0d631c68eda", "admin@admin.com", true, "admin", "admin", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEE4JW1U66vVRgsRFwPIallUa0uyJbskOqRckzNvpuLDcm1jIpHBuLyAtD7ZW352wSA==", null, false, "b7386f3f-5056-4dd1-9ca1-47d903ba2911", "123 Infinity Way", false, "admin@admin.com" },
+                    { "a12bfacf-2e68-43ed-8e7a-689f45e616a2", 0, "81e868bc-1a63-4875-bf45-6e3af3e50b4f", "alejandro@alejandro.com", true, "alejandro", "alejandro", false, null, "alejandro@alejandro.COM", "alejandro@alejandro.COM", "AQAAAAEAACcQAAAAEBdHLP+6g5uCZeL+Cx4gPeaK5R3Z1+sge+I3JlqSbTLopt5WaJERTvlfoCw/vlBfWg==", null, false, "d31f6dc3-840c-435f-8360-4633b02b2603", "123 Infinity Way", false, "alejandro@alejandro.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -301,8 +301,8 @@ namespace Bangazon.Migrations
                 columns: new[] { "OrderId", "DateCompleted", "DateCreated", "PaymentTypeId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "060cf717-dc79-4218-b0d2-24cb65629b3c" },
-                    { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "153e62b3-a5de-4c33-9daf-0e2ed2ca8316" }
+                    { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "a12bfacf-2e68-43ed-8e7a-689f45e616a2" }
                 });
 
             migrationBuilder.InsertData(
@@ -310,10 +310,10 @@ namespace Bangazon.Migrations
                 columns: new[] { "PaymentTypeId", "AccountNumber", "DateCreated", "Description", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "86753095551212", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Express", "060cf717-dc79-4218-b0d2-24cb65629b3c" },
-                    { 2, "4102948572991", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Discover", "060cf717-dc79-4218-b0d2-24cb65629b3c" },
-                    { 3, "1826475983857", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Discover", "153e62b3-a5de-4c33-9daf-0e2ed2ca8316" },
-                    { 4, "2345123467895", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Express", "153e62b3-a5de-4c33-9daf-0e2ed2ca8316" }
+                    { 1, "86753095551212", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Express", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 2, "4102948572991", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Discover", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 3, "1826475983857", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Discover", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 4, "2345123467895", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Express", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" }
                 });
 
             migrationBuilder.InsertData(
@@ -321,9 +321,27 @@ namespace Bangazon.Migrations
                 columns: new[] { "ProductId", "City", "DateCreated", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It flies high", null, 2.99, 1, 100, "Kite", "060cf717-dc79-4218-b0d2-24cb65629b3c" },
-                    { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It rolls fast", null, 29.99, 2, 5, "Wheelbarrow", "060cf717-dc79-4218-b0d2-24cb65629b3c" },
-                    { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "They're short", null, 29.99, 2, 5, "High-waters", "153e62b3-a5de-4c33-9daf-0e2ed2ca8316" }
+                    { 8, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Makes Rice", null, 19.99, 2, 90, "Rice maker", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 7, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Makes Bread", null, 29.99, 2, 8, "Bread maker", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It mixes stuff", null, 129.99, 2, 5, "Mixer", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 5, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It drys stuff", null, 329.99, 2, 5, "Dryer", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It cleans stuff", null, 429.99, 2, 5, "Washer", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "They're short", null, 29.99, 2, 5, "High-waters", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It rolls fast", null, 29.99, 2, 5, "Wheelbarrow", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 21, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "keeps the sweat out of your eyes", null, 8.99, 1, 167, "Sweat Band", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 20, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Keeps you cool", null, 18.99, 1, 167, "Sport Shirt", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 17, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Makes you look like you work in an office", null, 72.99, 1, 5, "Golf Club", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 18, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Makes you look like you work in an office", null, 2.99, 1, 54567, "Golf Ball", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 9, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Makes stuff cold", null, 59.99, 2, 190, "Freezer", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 16, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Its soo fast", null, 7.99, 1, 5, "Frizbee", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 15, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Soooo cozy", null, 99.99, 1, 560, "Running Shoes", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 14, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Keeps you Warm", null, 39.99, 1, 40, "Sleeping Bag", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 13, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Keeps you dry", null, 89.99, 1, 5630, "Tent", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 12, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It's Fast", null, 9.99, 1, 30, "Foot Ball", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 11, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It bounces high", null, 9.99, 1, 130, "Ball", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "It flies high", null, 2.99, 1, 100, "Kite", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" },
+                    { 19, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "They are REALLY SHORT", null, 22.99, 1, 67, "Sport Shorts", "a12bfacf-2e68-43ed-8e7a-689f45e616a2" },
+                    { 10, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cooks stuff", null, 259.99, 2, 10, "Stove", "9b562b5e-1cc0-4073-abdb-d81b9d93129f" }
                 });
 
             migrationBuilder.InsertData(
