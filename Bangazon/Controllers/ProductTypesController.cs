@@ -19,8 +19,12 @@ namespace Bangazon.Controllers
         {
             _context = context;
         }
-
-        // GET: ProductTypes
+        /*
+            Author: Priyanka Garg
+            Purpose: Construct a producttypeviewmodel to show the produts list.
+        
+           GET: ProductTypes
+           */
         public async Task<IActionResult> Index()
         {
             var model = new ProductTypeViewModel();
