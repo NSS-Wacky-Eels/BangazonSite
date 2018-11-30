@@ -25,6 +25,13 @@ namespace Bangazon.Controllers
             return View(await _context.ProductType.ToListAsync());
         }
 
+        /*
+        Author : Alejandro Font
+        Purpose: To give ProductType detail page access to Products
+        Method: Simply added the .Include method to the var productType, and by matching it with the products, the view can now show products and it's details.
+        */
+
+
         // GET: ProductTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
