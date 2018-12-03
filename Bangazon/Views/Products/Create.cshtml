@@ -50,6 +50,7 @@
             <div class="form-group">
                 <label asp-for="ProductTypeId" class="control-label"></label>
                 <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId">
+                    <!-- This gives a default value and the validation on line 56 doesnt let the form save without a selected value. -->
                     <option disabled selected>--- SELECT ---</option>
                 </select>
                 <span asp-validation-for="ProductTypeId" class="text-danger"></span>
