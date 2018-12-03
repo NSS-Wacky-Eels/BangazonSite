@@ -8,24 +8,34 @@ using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bangazon.Controllers
 {
     [Authorize]
     public class PaymentTypesController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+
+
         private readonly ApplicationDbContext _context;
 
-        public PaymentTypesController(ApplicationDbContext context)
+        public PaymentTypesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
 
         // GET: PaymentTypes
         public async Task<IActionResult> Index()
         {
+            var user = await GetCurrentUserAsync();
+
             var applicationDbContext = _context.PaymentType.Include(p => p.User);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await applicationDbContext.Where(pt => pt.UserId == user.Id).ToListAsync());
         }
 
         // GET: PaymentTypes/Details/5
