@@ -9,6 +9,7 @@ using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Bangazon.Models.ProductViewModels;
 
 namespace Bangazon.Controllers
 {
@@ -32,8 +33,16 @@ namespace Bangazon.Controllers
         [Authorize]
         public async Task<IActionResult> SearchResults(string search)
         {
-            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
+            ProductSearchViewModel viewModel = new ProductSearchViewModel();
+
+            viewModel.Search = search;
+
+            viewModel.Products = await _context.Product
+                                    .Include(p => p.ProductType)
+                                    .Where(p => p.Title.Contains(search))
+                                    .ToListAsync();
+       
+            return View(viewModel);
         }
 
         //Kayla Reid 

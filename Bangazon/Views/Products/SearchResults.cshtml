@@ -1,56 +1,48 @@
-﻿@model IEnumerable<Bangazon.Models.Product>
-
-    @*author Kayla Reid 
+﻿@model Bangazon.Models.ProductViewModels.ProductSearchViewModel
+@*author Kayla Reid
     purpose to show products the user searched for*@
 @{
     ViewData["Title"] = "SearchResults";
 }
 
-<h2>Search Results</h2>
+<h2>Search Results for "@Model.Search"</h2>
+<hr />
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductType)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                <a asp-action="Details" asp-controller="ProductTypes" asp-route-id="@item.ProductTypeId">@Html.DisplayFor(modelItem => item.ProductType.Label)</a>
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> 
-            </td>
-        </tr>
+@if (Model.Products.Count() == 0)
+{
+    <p>No Products match "@Model.Search"</p>
 }
-    </tbody>
-</table>
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Product Type
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-controller="ProductTypes" asp-route-id="@item.ProductTypeId">@Html.DisplayFor(modelItem => item.ProductType.Label)</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
