@@ -32,14 +32,14 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Products" asp-action="Index">Products</a></li>
                     <li><a asp-area="" asp-controller="ProductTypes" asp-action="Index">Product Types</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Sell Something</a></li>
+                    <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">View Cart</a></li>
-                    @using (@Html.BeginForm("SearchResults", "Products", FormMethod.Get))
-                    { 
-                        @Html.TextBox("search")<input placeholder="search for products" value="search" type="submit"/>
-                    }
                 </ul>
                 <partial name="_LoginPartial" />
+                @using (@Html.BeginForm("SearchResults", "Products", FormMethod.Get))
+                { 
+                    @Html.TextBox("search")<input placeholder="search for products" value="search" type="submit"/>
+                }
             </div>
         </div>
     </nav>

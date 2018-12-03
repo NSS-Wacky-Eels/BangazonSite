@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Bangazon.Controllers
@@ -14,11 +15,16 @@ namespace Bangazon.Controllers
     public class ProductsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext ctx,
+                          UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _context = ctx;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // author Kayla Reid
         //purpose to get products the user searches for 
@@ -66,6 +72,10 @@ namespace Bangazon.Controllers
         }
 
         // GET: Products/Create
+        /* Mike Parrish
+        Adds the authorization requirement
+        */
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label");
@@ -77,14 +87,26 @@ namespace Bangazon.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        /* Mike Parrish
+        Adds the authorization requirement
+        */
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,DateCreated,Description,Title,Price,Quantity,UserId,City,ImagePath,ProductTypeId")] Product product)
         {
+            /* Mike Parrish
+            This removes the user Id before it gets added back in below.
+            */
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                /* Mike Parrish
+                This redirects to the details page, then adds the id of the new product
+                */
+                return RedirectToAction(nameof(Details), new { id = product.ProductId.ToString() });
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
