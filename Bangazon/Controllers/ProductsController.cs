@@ -213,10 +213,6 @@ namespace Bangazon.Controllers
 
             // Get the current user
             var user = await GetCurrentUserAsync();
-            if(user == null)
-            {
-                return RedirectToAction("OnPostAsync", "Register");
-            }
 
             // See if the user has an open order
             var openOrder = await _context.Order.SingleOrDefaultAsync(o => o.User == user && o.PaymentTypeId == null);
@@ -242,7 +238,7 @@ namespace Bangazon.Controllers
             currentProduct.OrderId = currentOrder.OrderId;
             _context.Add(currentProduct);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Orders");
+            return RedirectToAction("Index", "Products");
 
         }
 
