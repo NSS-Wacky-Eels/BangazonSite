@@ -77,10 +77,11 @@ namespace Bangazon.Controllers
         Adds the authorization requirement
         */
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label");
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            // ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            ViewData["UserId"] = await GetCurrentUserAsync();
             return View();
         }
 
@@ -111,7 +112,7 @@ namespace Bangazon.Controllers
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
             // ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
-            var UserId = GetCurrentUserAsync();
+            ViewData["UserId"] = await GetCurrentUserAsync();
             return View(product);
         }
 
