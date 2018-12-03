@@ -16,6 +16,11 @@
             </li>
         </ul>
     </form>
+    <li>
+        <form asp-controller="Products" asp-action="SearchResults" method="get" class="nav-search">
+            <input type="text" name="search" class="input-sm" placeholder="Search for a product" />
+        </form>
+    </li>
 }
 else
 {

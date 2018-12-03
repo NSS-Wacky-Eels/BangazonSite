@@ -34,11 +34,6 @@
                     <li><a asp-area="" asp-controller="ProductTypes" asp-action="Index">Product Types</a></li>
                     <li><a asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">View Cart</a></li>
-                    <li>
-                        <form asp-controller="Products" asp-action="SearchResults" method="get" class="nav-search">
-                            <input type="text" name="search" class="input-sm" placeholder="Search for a product" />
-                        </form>
-                    </li>
                 </ul>
                 <partial name="_LoginPartial" />
             </div>

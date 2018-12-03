@@ -213,7 +213,7 @@ namespace Bangazon.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddToOrder([FromRoute] int id)
+        public async Task<IActionResult> AddToOrder(int id)
         {
             // Find the product requested
             Product productToAdd = await _context.Product.SingleOrDefaultAsync(p => p.ProductId == id);
