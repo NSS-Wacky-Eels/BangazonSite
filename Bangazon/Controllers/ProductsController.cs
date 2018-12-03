@@ -9,7 +9,7 @@ using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Bangazon.Models.ProductViewModels;
 
 namespace Bangazon.Controllers
 {
@@ -33,13 +33,20 @@ namespace Bangazon.Controllers
         [Authorize]
         public async Task<IActionResult> SearchResults(string search)
         {
-            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
+            ProductSearchViewModel viewModel = new ProductSearchViewModel();
+
+            viewModel.Search = search;
+
+            viewModel.Products = await _context.Product
+                                    .Include(p => p.ProductType)
+                                    .Where(p => p.Title.Contains(search))
+                                    .ToListAsync();
+       
+            return View(viewModel);
         }
 
         //Kayla Reid 
         //Purpse to get top 20 products for home page 
-        [Authorize]
         public async Task<IActionResult> HomeTopTwenty()
         {
             var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
@@ -208,7 +215,7 @@ namespace Bangazon.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddToOrder([FromRoute] int id)
+        public async Task<IActionResult> AddToOrder(int id)
         {
             // Find the product requested
             Product productToAdd = await _context.Product.SingleOrDefaultAsync(p => p.ProductId == id);
