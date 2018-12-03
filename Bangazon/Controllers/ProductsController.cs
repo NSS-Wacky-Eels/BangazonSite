@@ -109,7 +109,8 @@ namespace Bangazon.Controllers
                 return RedirectToAction(nameof(Details), new { id = product.ProductId.ToString() });
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
+            // ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
+            var UserId = GetCurrentUserAsync();
             return View(product);
         }
 
