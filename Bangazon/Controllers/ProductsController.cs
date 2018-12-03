@@ -9,6 +9,7 @@ using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Bangazon.Models.ProductViewModels;
 
 namespace Bangazon.Controllers
 {
@@ -32,13 +33,20 @@ namespace Bangazon.Controllers
         [Authorize]
         public async Task<IActionResult> SearchResults(string search)
         {
-            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
+            ProductSearchViewModel viewModel = new ProductSearchViewModel();
+
+            viewModel.Search = search;
+
+            viewModel.Products = await _context.Product
+                                    .Include(p => p.ProductType)
+                                    .Where(p => p.Title.Contains(search))
+                                    .ToListAsync();
+       
+            return View(viewModel);
         }
 
         //Kayla Reid 
         //Purpse to get top 20 products for home page 
-        [Authorize]
         public async Task<IActionResult> HomeTopTwenty()
         {
             var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
@@ -202,6 +210,44 @@ namespace Bangazon.Controllers
         private bool ProductExists(int id)
         {
             return _context.Product.Any(e => e.ProductId == id);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AddToOrder(int id)
+        {
+            // Find the product requested
+            Product productToAdd = await _context.Product.SingleOrDefaultAsync(p => p.ProductId == id);
+
+            // Get the current user
+            var user = await GetCurrentUserAsync();
+
+            // See if the user has an open order
+            var openOrder = await _context.Order.SingleOrDefaultAsync(o => o.User == user && o.PaymentTypeId == null);
+
+            // If no order, create one, else add to existing order
+            Order currentOrder;
+
+            if (openOrder == null)
+            {
+                currentOrder = new Order();
+                currentOrder.UserId = user.Id;
+                currentOrder.PaymentTypeId = null;
+                _context.Add(currentOrder);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                currentOrder = openOrder;
+            }
+
+            // If yes the order already exists, so create a new instance of OrderProduct() and give it the queried order's OrderId and the ProductId passed in from the route
+            OrderProduct currentProduct = new OrderProduct();
+            currentProduct.ProductId = id;
+            currentProduct.OrderId = currentOrder.OrderId;
+            _context.Add(currentProduct);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Products");
+
         }
     }
 }
