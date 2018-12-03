@@ -103,13 +103,14 @@ namespace Bangazon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,DateCreated,Description,Title,Price,Quantity,UserId,City,ImagePath,ProductTypeId")] Product product)
         {
-            /* Mike Parrish
-            This removes the user Id before it gets added back in below.
-            */
-            ModelState.Remove("User");
 
-            if (ModelState.IsValid)
+            // Get the current user
+            var user = await GetCurrentUserAsync();
+
+
+            if (user != null)
             {
+                product.UserId = user.Id;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 /* Mike Parrish
@@ -118,8 +119,7 @@ namespace Bangazon.Controllers
                 return RedirectToAction(nameof(Details), new { id = product.ProductId.ToString() });
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
-            // ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
-            ViewData["UserId"] = await GetCurrentUserAsync();
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
             return View(product);
         }
 
