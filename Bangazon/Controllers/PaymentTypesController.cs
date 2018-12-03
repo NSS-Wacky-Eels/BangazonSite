@@ -75,6 +75,11 @@ namespace Bangazon.Controllers
                 paymentType.User = user;
                 paymentType.UserId = user.Id;
 
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+
+
+
             if (ModelState.IsValid)
             {
                 _context.Add(paymentType);
