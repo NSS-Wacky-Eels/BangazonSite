@@ -6,7 +6,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomeTopTwenty", "Products", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
             <li><a asp-area="" asp-controller="PaymentTypes" asp-action="Index">Settings</a></li>
@@ -17,6 +17,11 @@
             </li>
         </ul>
     </form>
+    <li>
+        <form asp-controller="Products" asp-action="SearchResults" method="get" class="nav-search">
+            <input type="text" name="search" class="input-sm" placeholder="Search for a product" />
+        </form>
+    </li>
 }
 else
 {

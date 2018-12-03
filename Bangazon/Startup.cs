@@ -60,12 +60,7 @@ namespace Bangazon {
             app.UseMvc (routes => {
                 routes.MapRoute (
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            //});
-            //app.UseMvc(routes =>
-            //{
-                routes.MapRoute("types", "types",
-     defaults: new { controller = "ProductTypes", action = "Types" });
+                    template: "{controller=Products}/{action=HomeTopTwenty}/");
             });
         }
     }
