@@ -15,9 +15,15 @@ namespace Bangazon.Controllers
     [Authorize]
     public class PaymentTypesController : Controller
     {
+
+        /*
+         Author : Alejandro Font
+         Purpose and Method : Added UserMananger class, placed it in the constructor, and made GetCurrentUserAsync() so I could access the current 
+                                user. This allows me to show specified payment types. 
+
+         */
+
         private readonly UserManager<ApplicationUser> _userManager;
-
-
         private readonly ApplicationDbContext _context;
 
         public PaymentTypesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
@@ -28,6 +34,11 @@ namespace Bangazon.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        /*
+            Author : Alejandro Font
+            Purpose and Method : After scaffolding, I only added the Where method below, which returns the paymentTypes
+                                    that are paired by UserId with the current user.  
+         */
 
         // GET: PaymentTypes
         public async Task<IActionResult> Index()
@@ -71,6 +82,12 @@ namespace Bangazon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PaymentTypeId,DateCreated,Description,AccountNumber,UserId")] PaymentType paymentType)
         {
+
+        //Author : Alejandro Font
+        //Purpose and method : User variable retrieves the current user, and by assigning values to Payment Type parameters, the paymentType,
+        // once sent to the database, will hold the correct data. This takes away the ability the user had to choose the userId. 
+
+
             var user = await GetCurrentUserAsync();
                 paymentType.User = user;
                 paymentType.UserId = user.Id;
