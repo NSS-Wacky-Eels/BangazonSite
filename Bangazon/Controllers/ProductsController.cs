@@ -233,6 +233,7 @@ namespace Bangazon.Controllers
                 currentOrder = openOrder;
             }
 
+            // If yes the order already exists, so create a new instance of OrderProduct() and give it the queried order's OrderId and the ProductId passed in from the route
             OrderProduct currentProduct = new OrderProduct();
             currentProduct.ProductId = id;
             currentProduct.OrderId = currentOrder.OrderId;
@@ -241,54 +242,5 @@ namespace Bangazon.Controllers
             return RedirectToAction("Index", "Products");
 
         }
-
-        //public async Task<IActionResult> Create([FromRoute]int id)
-        //{
-        //    // Query the database to see if there are any current orders with a PaymentType 
-        //    // associated with the current user
-
-        //    if (ActiveUser.Instance.User == null)
-        //    {
-        //        return RedirectToAction("Create", "Users");
-        //    }
-
-        //    Order currentOrder;
-
-        //    var queriedOrder =
-        //    from ord in context.Order
-        //    join uid in context.User on ord.UserId equals uid.UserId
-        //    where ord.UserId == ActiveUser.Instance.User.UserId
-        //    && ord.PaymentTypeId == null
-        //    select ord;
-
-        //    var emptyChecker = queriedOrder.SingleOrDefault();
-
-        //    // if NO
-        //    // create a new instance of Order() and give it the current user's UserId
-        //    // and set PaymentType to null
-
-        //    if (emptyChecker == null)
-        //    {
-        //        currentOrder = new Order();
-        //        currentOrder.UserId = ActiveUser.Instance.User.UserId;
-        //        currentOrder.PaymentTypeId = null;
-        //        context.Add(currentOrder);
-        //        await context.SaveChangesAsync();
-        //    }
-        //    else
-        //    {
-        //        currentOrder = queriedOrder.SingleOrDefault();
-        //    }
-        //    // if YES
-        //    // The order already exists, so do the following:
-        //    // Create a new instance of OrderProduct() and give it the queried order's OrderId
-        //    // AND the ProductId passed in from the route
-        //    OrderProduct currentProduct = new OrderProduct();
-        //    currentProduct.ProductId = id;
-        //    currentProduct.OrderId = currentOrder.OrderId;
-        //    context.Add(currentProduct);
-        //    await context.SaveChangesAsync();
-        //    return RedirectToAction("Index", "Orders");
-        //}
     }
 }

@@ -33,18 +33,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <a asp-action="Details" asp-route-id="item.ProductId">@Html.DisplayFor(modelItem => item.Title)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-<<<<<<< HEAD
-                <a asp-action="Details" asp-route-id="item.ProductId">@Html.DisplayFor(modelItem => item.Title)</a>
-            </td>
-            <td>
-=======
->>>>>>> master
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
