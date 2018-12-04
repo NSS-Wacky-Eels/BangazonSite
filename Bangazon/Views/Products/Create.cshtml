@@ -33,11 +33,6 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="City" class="control-label"></label>
                 <input asp-for="City" class="form-control" />
                 <span asp-validation-for="City" class="text-danger"></span>
@@ -50,7 +45,7 @@
             <div class="form-group">
                 <label asp-for="ProductTypeId" class="control-label"></label>
                 <select asp-for="ProductTypeId" class="form-control" asp-items="ViewBag.ProductTypeId">
-                    <!-- This gives a default value and the validation on line 56 doesnt let the form save without a selected value. -->
+                    <!-- This gives a default value and the validation on line 56 doesnt let the form save without a selected value. "disabled" removes it from the available choices to select, and "selected" means its the default value in the box. -->
                     <option disabled selected>--- SELECT ---</option>
                 </select>
                 <span asp-validation-for="ProductTypeId" class="text-danger"></span>
