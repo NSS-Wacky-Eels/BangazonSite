@@ -10,23 +10,23 @@ using Bangazon.Models;
 
 namespace Bangazon.Controllers
 {
-    public class Orders1Controller : Controller
+    public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public Orders1Controller(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Orders1
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Orders1/Details/5
+        // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // GET: Orders1/Create
+        // GET: Orders/Create
         public IActionResult Create()
         {
             ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber");
@@ -54,7 +54,7 @@ namespace Bangazon.Controllers
             return View();
         }
 
-        // POST: Orders1/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -72,7 +72,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // GET: Orders1/Edit/5
+        // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,7 +90,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // POST: Orders1/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -127,7 +127,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // GET: Orders1/Delete/5
+        // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +147,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // POST: Orders1/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
