@@ -9,6 +9,9 @@
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("HomeTopTwenty", "Products", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
+                <a asp-area="" asp-controller="Orders" asp-action="Index">View Cart</a>
+            </li>
+            <li>
                 <a asp-area="" asp-controller="PaymentTypes" asp-action="Index">Settings</a>
             </li>
             <li>
