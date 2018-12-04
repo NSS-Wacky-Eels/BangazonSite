@@ -7,36 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Bangazon.Controllers
 {
-    public class OrdersController : Controller
+    public class Orders1Controller : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        private readonly UserManager<ApplicationUser> _userManager;
-
-
-        public OrdersController(ApplicationDbContext ctx,
-                           UserManager<ApplicationUser> userManager)
+        public Orders1Controller(ApplicationDbContext context)
         {
-            _userManager = userManager;
-            _context = ctx;
+            _context = context;
         }
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // GET: Orders
+        // GET: Orders1
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUserAsync();
-
-            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User).Where(u => u.User.Id == user.Id);
+            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Orders/Details/5
+        // GET: Orders1/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -56,7 +46,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // GET: Orders/Create
+        // GET: Orders1/Create
         public IActionResult Create()
         {
             ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber");
@@ -64,7 +54,7 @@ namespace Bangazon.Controllers
             return View();
         }
 
-        // POST: Orders/Create
+        // POST: Orders1/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -82,7 +72,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // GET: Orders/Edit/5
+        // GET: Orders1/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,7 +90,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // POST: Orders/Edit/5
+        // POST: Orders1/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -137,7 +127,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // GET: Orders/Delete/5
+        // GET: Orders1/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,7 +147,7 @@ namespace Bangazon.Controllers
             return View(order);
         }
 
-        // POST: Orders/Delete/5
+        // POST: Orders1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -172,22 +162,5 @@ namespace Bangazon.Controllers
         {
             return _context.Order.Any(e => e.OrderId == id);
         }
-
-       // [Authorize]
-       // public async Task<IActionResult> Delete([FromRoute] int id)
-       //{
-       //       //Find the product requested
-       //    Product productToAdd = await _context.Product.SingleOrDefaultAsync(p => p.ProductId == id);
-
-       //     //Get the current user
-       //    var user = await GetCurrentUserAsync();
-
-       //    //See if the user has an open order
-       //    var openOrder = await _context.Order.SingleOrDefaultAsync(o => o.User == user && o.PaymentTypeId == null);
-
-
-       //// If no order, create one, else add to existing order
-       // }
-
     }
 }
