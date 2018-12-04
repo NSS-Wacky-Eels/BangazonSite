@@ -25,13 +25,14 @@ namespace Bangazon.Controllers
         }
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-
+        // author Priyanka Garg
+        //purpose to get Orders in the cart  
         // GET: OrderProducts
         public async Task<IActionResult> Index()
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.OrderProduct.Include(o => o.Product).Where(u => u.User.Id == user.Id).Include(o => o.Order);
+            var applicationDbContext = _context.OrderProduct.Include(o => o.Product).Where(u => u.Order.UserId == user.Id).Include(o => o.Order);
             return View(await applicationDbContext.ToListAsync());
         }
 

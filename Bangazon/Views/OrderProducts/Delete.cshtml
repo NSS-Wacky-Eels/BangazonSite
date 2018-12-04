@@ -1,4 +1,8 @@
 ﻿@model Bangazon.Models.OrderProduct
+@*author Priyanka Garg
+    purpose to Delete Orders from the cart
+    *@
+
 
 @{
     ViewData["Title"] = "Delete";
@@ -6,25 +10,24 @@
 
 <h2>Delete</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to delete this item from the cart?</h3>
 <div>
-    <h4>OrderProduct</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Order)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Order.UserId)
+            @Html.DisplayFor(model => model.Order.OrderId)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Product)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Product.Description)
+            @Html.DisplayFor(model => model.Product.Title)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="OrderProductId" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
