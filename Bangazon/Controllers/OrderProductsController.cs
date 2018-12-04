@@ -136,7 +136,9 @@ namespace Bangazon.Controllers
             ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "Description", orderProduct.ProductId);
             return View(orderProduct);
         }
-
+        //Author Priyanka Garg
+        //Purpose:Delete the products from the cart
+     
         // GET: OrderProducts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
