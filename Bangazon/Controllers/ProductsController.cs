@@ -9,7 +9,7 @@ using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+using Bangazon.Models.ProductViewModels;
 
 namespace Bangazon.Controllers
 {
@@ -33,13 +33,20 @@ namespace Bangazon.Controllers
         [Authorize]
         public async Task<IActionResult> SearchResults(string search)
         {
-            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.Where(p => p.Title.StartsWith(search)).ToListAsync());
+            ProductSearchViewModel viewModel = new ProductSearchViewModel();
+
+            viewModel.Search = search;
+
+            viewModel.Products = await _context.Product
+                                    .Include(p => p.ProductType)
+                                    .Where(p => p.Title.Contains(search))
+                                    .ToListAsync();
+       
+            return View(viewModel);
         }
 
         //Kayla Reid 
         //Purpse to get top 20 products for home page 
-        [Authorize]
         public async Task<IActionResult> HomeTopTwenty()
         {
             var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
@@ -95,13 +102,14 @@ namespace Bangazon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,DateCreated,Description,Title,Price,Quantity,UserId,City,ImagePath,ProductTypeId")] Product product)
         {
-            /* Mike Parrish
-            This removes the user Id before it gets added back in below.
-            */
-            ModelState.Remove("User");
 
-            if (ModelState.IsValid)
+            // Get the current user
+            var user = await GetCurrentUserAsync();
+
+
+            if (user != null)
             {
+                product.UserId = user.Id;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 /* Mike Parrish
@@ -206,7 +214,7 @@ namespace Bangazon.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> AddToOrder([FromRoute] int id)
+        public async Task<IActionResult> AddToOrder(int id)
         {
             // Find the product requested
             Product productToAdd = await _context.Product.SingleOrDefaultAsync(p => p.ProductId == id);
