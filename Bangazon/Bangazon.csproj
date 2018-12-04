@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\OrdersController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="appsettings.json" />
     <Content Remove="Views\Index.cshtml" />
   </ItemGroup>
