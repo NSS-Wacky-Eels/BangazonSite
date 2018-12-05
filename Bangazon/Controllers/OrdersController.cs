@@ -186,6 +186,9 @@ namespace Bangazon.Controllers
             return _context.Order.Any(e => e.OrderId == id);
         }
 
+        //Author Whole Team
+        //purpose to delete products from the cart
+        //this methods get the orderProductId passed in as an argand pulls up the details of the product that matches
         //Get: Orders/Delete
         public async Task<IActionResult> DeleteFromCart(int? id)
         {
@@ -201,6 +204,7 @@ namespace Bangazon.Controllers
             return View(orderproduct);
         }
 
+        //this takes in the orderProductId and deletes the orderproduct joiner table that matches
         // POST: Orders/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
