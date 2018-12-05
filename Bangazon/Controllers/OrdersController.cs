@@ -194,22 +194,20 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
-            var product = await _context.OrderProduct
+            var orderproduct = await _context.OrderProduct
                 .Include(op => op.Product)
-                .Include(op => op.Order)
                 .FirstOrDefaultAsync(op => op.OrderProductId == id);
-            
 
-            return View(product);
+            return View(orderproduct);
         }
 
         // POST: Orders/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteFromCartConfirmed(int id)
+        public async Task<IActionResult> DeleteFromCartConfirmed(OrderProduct op)
         {
-            var order = await _context.Order.FindAsync(id);
-            _context.Order.Remove(order);
+            var orderProduct = await _context.OrderProduct.FindAsync(op.OrderProductId);
+            _context.OrderProduct.Remove(orderProduct);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
