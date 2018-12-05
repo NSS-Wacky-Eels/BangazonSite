@@ -210,6 +210,8 @@ namespace Bangazon.Controllers
             Order activeOrder = _context.Order
                 .Include(o => o.User)
                 .Include(o => o.PaymentType)
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Product)
                 .Where(o => o.UserId == user.Id)
                 .Where(o => o.PaymentType == null).ToList().FirstOrDefault();
 
@@ -219,15 +221,17 @@ namespace Bangazon.Controllers
 
                 _context.Update(activeOrder);
                 await _context.SaveChangesAsync();
-            }
 
-            foreach(var op in activeOrder.OrderProducts)
+             foreach(var op in activeOrder.OrderProducts)
             {
                 Product currentProduct = op.Product;
+                currentProduct.Quantity = currentProduct.Quantity - 1;
 
                 _context.Update(currentProduct);
                 await _context.SaveChangesAsync();
             }
+            }
+
 
             return View();
         }
