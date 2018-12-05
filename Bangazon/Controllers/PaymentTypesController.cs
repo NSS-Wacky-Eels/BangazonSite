@@ -221,9 +221,12 @@ namespace Bangazon.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            foreach(var product in activeOrder.OrderProducts)
+            foreach(var op in activeOrder.OrderProducts)
             {
-                _context.Product
+                Product currentProduct = op.Product;
+
+                _context.Update(currentProduct);
+                await _context.SaveChangesAsync();
             }
 
             return View();
