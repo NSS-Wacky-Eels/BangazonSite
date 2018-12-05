@@ -203,6 +203,7 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.Where(pt => pt.UserId == user.Id).ToListAsync());
         }
 
+        // this takes in the payment type id and updates the database to complete the order
         public async Task<IActionResult> PaymentConfirmation(int? id)
         {
             var user = await GetCurrentUserAsync();
@@ -221,7 +222,8 @@ namespace Bangazon.Controllers
 
                 _context.Update(activeOrder);
                 await _context.SaveChangesAsync();
-
+            // this foreaches over the products in the cart and subtracts the quantity for the total
+            // amount for this product in the database 
              foreach(var op in activeOrder.OrderProducts)
             {
                 Product currentProduct = op.Product;
@@ -231,7 +233,6 @@ namespace Bangazon.Controllers
                 await _context.SaveChangesAsync();
             }
             }
-
 
             return View();
         }
