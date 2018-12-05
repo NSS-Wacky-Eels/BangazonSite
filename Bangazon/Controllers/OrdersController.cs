@@ -7,23 +7,46 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bangazon.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public OrdersController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public OrdersController(ApplicationDbContext ctx,
+                          UserManager<ApplicationUser> userManager)
         {
-            _context = context;
+            _userManager = userManager;
+            _context = ctx;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User);
-            return View(await applicationDbContext.ToListAsync());
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.Order
+                .Include(o => o.PaymentType)
+                .Include(o => o.User)
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Product)
+                .Where(o => o.UserId == user.Id)
+                .Where(o => o.PaymentType == null);
+            
+            if (applicationDbContext != null)
+            {
+                return View(await applicationDbContext.ToListAsync());
+            }
+
+            return View();
         }
 
         // GET: Orders/Details/5
@@ -161,6 +184,36 @@ namespace Bangazon.Controllers
         private bool OrderExists(int id)
         {
             return _context.Order.Any(e => e.OrderId == id);
+        }
+
+        //Author Whole Team
+        //purpose to delete products from the cart
+        //this methods get the orderProductId passed in as an argand pulls up the details of the product that matches
+        //Get: Orders/Delete
+        public async Task<IActionResult> DeleteFromCart(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var orderproduct = await _context.OrderProduct
+                .Include(op => op.Product)
+                .FirstOrDefaultAsync(op => op.OrderProductId == id);
+
+            return View(orderproduct);
+        }
+
+        //this takes in the orderProductId and deletes the orderproduct joiner table that matches
+        // POST: Orders/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteFromCartConfirmed(OrderProduct op)
+        {
+            var orderProduct = await _context.OrderProduct.FindAsync(op.OrderProductId);
+            _context.OrderProduct.Remove(orderProduct);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
