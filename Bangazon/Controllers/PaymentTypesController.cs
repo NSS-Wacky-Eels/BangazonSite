@@ -203,9 +203,29 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.Where(pt => pt.UserId == user.Id).ToListAsync());
         }
 
-        public async Task<IActionResult> PaymentConfirmation()
+        public async Task<IActionResult> PaymentConfirmation(int? id)
         {
-            await _context.SaveChangesAsync();
+            var user = await GetCurrentUserAsync();
+
+            Order activeOrder = _context.Order
+                .Include(o => o.User)
+                .Include(o => o.PaymentType)
+                .Where(o => o.UserId == user.Id)
+                .Where(o => o.PaymentType == null).ToList().FirstOrDefault();
+
+            if (activeOrder != null)
+            {
+                activeOrder.PaymentTypeId = id;
+
+                _context.Update(activeOrder);
+                await _context.SaveChangesAsync();
+            }
+
+            foreach(var product in activeOrder.OrderProducts)
+            {
+                _context.Product
+            }
+
             return View();
         }
     }
