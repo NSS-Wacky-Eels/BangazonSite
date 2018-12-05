@@ -185,5 +185,33 @@ namespace Bangazon.Controllers
         {
             return _context.Order.Any(e => e.OrderId == id);
         }
+
+        //Get: Orders/Delete
+        public async Task<IActionResult> DeleteFromCart(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.OrderProduct
+                .Include(op => op.Product)
+                .Include(op => op.Order)
+                .FirstOrDefaultAsync(op => op.OrderProductId == id);
+            
+
+            return View(product);
+        }
+
+        // POST: Orders/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteFromCartConfirmed(int id)
+        {
+            var order = await _context.Order.FindAsync(id);
+            _context.Order.Remove(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
