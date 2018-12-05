@@ -194,5 +194,19 @@ namespace Bangazon.Controllers
         {
             return _context.PaymentType.Any(e => e.PaymentTypeId == id);
         }
+
+        public async Task<IActionResult> SelectPaymentType()
+        {
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.PaymentType.Include(p => p.User);
+            return View(await applicationDbContext.Where(pt => pt.UserId == user.Id).ToListAsync());
+        }
+
+        public async Task<IActionResult> ChoosePayment()
+        {
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(PaymentConfirmation));
+        }
     }
 }
