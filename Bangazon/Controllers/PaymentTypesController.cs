@@ -203,10 +203,10 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.Where(pt => pt.UserId == user.Id).ToListAsync());
         }
 
-        public async Task<IActionResult> ChoosePayment()
+        public async Task<IActionResult> PaymentConfirmation()
         {
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(PaymentConfirmation));
+            return View();
         }
     }
 }

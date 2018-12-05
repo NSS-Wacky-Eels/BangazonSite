@@ -10,8 +10,7 @@
 {
     <h3>@Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)'s Cart</h3>
     <div>
-        <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> | <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> | 
-        <div class="btn btn-default">
+        <div class="btn btn-default pull-right">
             <a asp-area="" asp-controller="PaymentTypes" asp-action="SelectPaymentType" asp-route-id="@item.OrderId">Complete Order</a>
         </div>
     </div>
@@ -34,7 +33,7 @@
                     @foreach (var op in item.OrderProducts)
                     {
                         <div>
-                            <p>@op.Product.Title </p>
+                            <p><a asp-area="" asp-controller="Products" asp-action="Details" asp-route-id="@op.ProductId">@op.Product.Title</a></p>
                         </div>
                     }
                 </td>

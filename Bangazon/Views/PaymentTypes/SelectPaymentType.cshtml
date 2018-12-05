@@ -37,7 +37,7 @@
                 @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
             </td>
             <td>
-                <div class="btn btn-default"><a asp-area="" asp-controller="PaymentTypes" asp-action="ChoosePayment" asp-route-id="@item.PaymentTypeId">Choose Payment</a></div>
+                <div class="btn btn-default"><a asp-area="" asp-controller="PaymentTypes" asp-action="PaymentConfirmation" asp-route-id="@item.PaymentTypeId">Choose Payment</a></div>
             </td>
         </tr>
 }
