@@ -194,5 +194,47 @@ namespace Bangazon.Controllers
         {
             return _context.PaymentType.Any(e => e.PaymentTypeId == id);
         }
+
+        public async Task<IActionResult> SelectPaymentType()
+        {
+            var user = await GetCurrentUserAsync();
+
+            var applicationDbContext = _context.PaymentType.Include(p => p.User);
+            return View(await applicationDbContext.Where(pt => pt.UserId == user.Id).ToListAsync());
+        }
+
+        // this takes in the payment type id and updates the database to complete the order
+        public async Task<IActionResult> PaymentConfirmation(int? id)
+        {
+            var user = await GetCurrentUserAsync();
+
+            Order activeOrder = _context.Order
+                .Include(o => o.User)
+                .Include(o => o.PaymentType)
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Product)
+                .Where(o => o.UserId == user.Id)
+                .Where(o => o.PaymentType == null).ToList().FirstOrDefault();
+
+            if (activeOrder != null)
+            {
+                activeOrder.PaymentTypeId = id;
+
+                _context.Update(activeOrder);
+                await _context.SaveChangesAsync();
+            // this foreaches over the products in the cart and subtracts the quantity for the total
+            // amount for this product in the database 
+             foreach(var op in activeOrder.OrderProducts)
+            {
+                Product currentProduct = op.Product;
+                currentProduct.Quantity = currentProduct.Quantity - 1;
+
+                _context.Update(currentProduct);
+                await _context.SaveChangesAsync();
+            }
+            }
+
+            return View();
+        }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Bangazon.Models.PaymentType>
+
+@{
+    ViewData["Title"] = "SelectPaymentType";
+}
+
+<h2>SelectPaymentType</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName)
+            </td>
+            <td>
+                <div class="btn btn-default"><a asp-area="" asp-controller="PaymentTypes" asp-action="PaymentConfirmation" asp-route-id="@item.PaymentTypeId">Choose Payment</a></div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
